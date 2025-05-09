@@ -1,0 +1,49 @@
+name: Build and Publish electron-vesktop
+
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: archlinux
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build package
+        run: |
+          sudo pacman -Syu --noconfirm
+          makepkg --noconfirm --syncdeps --needed --sign
+
+      - name: Find built package
+        id: pkg
+        run: |
+          PKG=$(ls *.pkg.tar.zst | head -n1)
+          echo "pkgfile=$PKG" >> $GITHUB_OUTPUT
+          echo "sigfile=$PKG.sig" >> $GITHUB_OUTPUT
+
+      - name: Clone archrepo repository
+        uses: actions/checkout@v4
+        with:
+          repository: Lungooo/archrepo
+          path: archrepo
+          ssh-key: ${{ secrets.REPO_DEPLOY_KEY }}
+          lfs: true
+
+      - name: Add package to repo and sign db
+        run: |
+          cd archrepo/x86_64
+          cp ../../${{ steps.pkg.outputs.pkgfile }} .
+          cp ../../${{ steps.pkg.outputs.sigfile }} .
+          repo-add --verify --sign --remove lungoo.db.tar.gz *.pkg.tar.zst
+
+      - name: Push repo changes
+        run: |
+          cd archrepo
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          version=$(basename "${{ steps.pkg.outputs.pkgfile }}" | rev | cut -d'-' -f2,3 | rev)
+          git commit -m "Updated electron-vesktop to Version $version"
+          git push
