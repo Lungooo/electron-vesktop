@@ -228,11 +228,11 @@ source=("git+https://github.com/electron/electron.git#tag=v$pkgver"
         )
 sha256sums=('7e01be024b2a068b41028776d14eef98e4c9ccb0aef78fd226677c9c0c0023ee'
             '6f5067e5f87ac0591295fc3ec0f7e722d0f5eb94ade2fb3e73ae8abcbb674f8a'
-            '750fa28c0cbe464a45bab5a1021434e296ad83fef78b927eaec0f82df3aac26c'
             '11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e'
+            '86b2896bf4d2c770eb1aefaf276a1eabbb0858c94722cae476d2d01efbc2cd15'
+            '750fa28c0cbe464a45bab5a1021434e296ad83fef78b927eaec0f82df3aac26c'
             '2d98a7a6a553fb5c17c4bfe36f011410f377afa12a6a818ba36543dc9a258f4a'
             'de3222b13d3a49628a00fd74acae633912b830f78c2de452d3bdff3d0e42026d'
-            '86b2896bf4d2c770eb1aefaf276a1eabbb0858c94722cae476d2d01efbc2cd15'
             'dd2d248831dd4944d385ebf008426e66efe61d6fdf66f8932c963a12167947b4'
             '13fcf26193f4417fd5dfbc82a3f24e5c7a1cce82f729f6a73f1b1d3a7b580b34'
             '4484200d90b76830b69eea3a471c103999a3ce86bb2c29e6c14c945bf4102bae'
